@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Брендбук · Вайб-кодер</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg:#0f172a; --bg2:#1e293b; --line:#334155;
+    --text:#e2e8f0; --muted:#94a3b8;
+    --accent:#8b5cf6; --accent2:#2563eb;
+    --ok:#4ade80; --warn:#f87171;
+  }
+  body { font-family:'Segoe UI', Arial, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+  .wrap { max-width:1000px; margin:0 auto; padding:40px 24px 80px; }
+  h1 { font-size:34px; margin-bottom:6px; }
+  .lead { color:var(--muted); margin-bottom:40px; }
+  h2 { font-size:24px; margin:48px 0 16px; border-bottom:1px solid var(--line); padding-bottom:10px; }
+  h3 { font-size:16px; margin-bottom:8px; }
+  .grid { display:grid; gap:18px; }
+  .g4 { grid-template-columns:repeat(4,1fr); }
+  .g3 { grid-template-columns:repeat(3,1fr); }
+  @media(max-width:800px){ .g4,.g3{ grid-template-columns:repeat(2,1fr);} }
+  .sw { border-radius:14px; overflow:hidden; border:1px solid var(--line); }
+  .sw .c { height:90px; }
+  .sw .m { padding:10px 12px; background:var(--bg2); font-size:13px; }
+  .sw .m b { display:block; font-size:14px; }
+  .sw .m span { color:var(--muted); font-size:12px; }
+  .card { background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:20px; }
+  .card p { color:var(--muted); font-size:14px; }
+  .type { background:var(--bg2); border:1px solid var(--line); border-radius:12px; padding:14px 18px; margin-bottom:10px; }
+  .type b { font-weight:800; }
+  .type .demo { margin-top:4px; }
+  .type .demo.h1 { font-size:34px; } .type .demo.h2 { font-size:26px; }
+  .type .demo.h3 { font-size:17px; font-weight:700; }
+  .type .demo.p { color:var(--muted); font-size:15px; }
+  .type .demo.small { color:var(--muted); font-size:13px; }
+  code { background:#0f172a; border:1px solid var(--line); padding:2px 8px; border-radius:6px; font-size:12px; color:#c4b5fd; }
+  .tag { display:inline-block; background:rgba(139,92,246,.15); color:#c4b5fd; border:1px solid rgba(139,92,246,.3); border-radius:999px; padding:6px 16px; font-size:13px; margin:4px 4px 0 0; }
+  .btn { display:inline-block; padding:12px 24px; border-radius:12px; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; font-weight:700; }
+  .btn.ghost { background:none; border:1px solid var(--line); color:var(--text); }
+  .do { color:var(--ok); } .dont { color:var(--warn); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Брендбук · Вайб-кодер</h1>
+  <div class="lead">Единый стиль всех моих продуктов и портфолио. Тёмная тема, сиреневый акцент, мягкие края.</div>
+
+  <h2>1 · Цветовая палитра</h2>
+  <div class="grid g4">
+    <div class="sw"><div class="c" style="background:#0f172a;"></div><div class="m"><b>Фон основной</b><span>#0F172A · var(--bg)</span></div></div>
+    <div class="sw"><div class="c" style="background:#1e293b;"></div><div class="m"><b>Фон карточек</b><span>#1E293B · var(--bg2)</span></div></div>
+    <div class="sw"><div class="c" style="background:#e2e8f0;"></div><div class="m"><b>Текст основной</b><span>#E2E8F0 · var(--text)</span></div></div>
+    <div class="sw"><div class="c" style="background:#94a3b8;"></div><div class="m"><b>Текст вторичный</b><span>#94A3B8 · var(--muted)</span></div></div>
+    <div class="sw"><div class="c" style="background:linear-gradient(135deg,#8b5cf6,#2563eb);"></div><div class="m"><b>Градиент акцент</b><span>фиолет→синий · кнопки</span></div></div>
+    <div class="sw"><div class="c" style="background:#8b5cf6;"></div><div class="m"><b>Акцент фиолет</b><span>#8B5CF6 · var(--accent)</span></div></div>
+    <div class="sw"><div class="c" style="background:#2563eb;"></div><div class="m"><b>Акцент синий</b><span>#2563EB · var(--accent2)</span></div></div>
+    <div class="sw"><div class="c" style="background:#334155;"></div><div class="m"><b>Границы</b><span>#334155 · var(--line)</span></div></div>
+  </div>
+  <p style="color:var(--muted); font-size:14px; margin-top:12px;">
+    Дополнительно: <b style="color:var(--ok);">#4ADE80</b> — успех (зелёный, напр. «запущен»), <b style="color:var(--warn);">#F87171</b> — предупреждение (красный, напр. срочные блоки).
+  </p>
+
+  <h2>2 · Шрифты</h2>
+  <div class="type"><b>Основной (весь текст)</b><div class="demo h1">Segoe UI · Arial</div></div>
+  <div class="grid g3">
+    <div class="type"><div class="demo h1">Заголовок H1</div><span style="color:var(--muted);font-size:12px;">34–42 px · 800</span></div>
+    <div class="type"><div class="demo h2">Заголовок H2</div><span style="color:var(--muted);font-size:12px;">26–30 px · 700</span></div>
+    <div class="type"><div class="demo h3">Заголовок H3</div><span style="color:var(--muted);font-size:12px;">16–20 px · 700</span></div>
+    <div class="type"><div class="demo p">Обычный текст</div><span style="color:var(--muted);font-size:12px;">14–18 px · 400, цвет #94A3B8 для подзаголовков</span></div>
+    <div class="type"><div class="demo small">Мелкий текст / сноски</div><span style="color:var(--muted);font-size:12px;">12–13 px · примечания, дисклеймеры</span></div>
+    <div class="type"><div class="demo" style="background:linear-gradient(90deg,#8b5cf6,#2563eb);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:800;">Градиентный ключ</div><span style="color:var(--muted);font-size:12px;">для ключевых слов в центре фраз</span></div>
+  </div>
+  <p style="color:var(--muted);font-size:14px;margin-top:12px;">
+    Английские слова бренда: <b style="color:var(--text);">Вайб-кодер</b> — пишем всегда с дефисом, с большой буквы «В».
+  </p>
+
+  <h2>3 · Формы и кнопки</h2>
+  <div class="grid g3">
+    <div class="card"><h3>Скругления</h3><p>Карточки — 14–20 px. Кнопки, чипы — 999 px (полные пилюли). Поля ввода — 10–12 px. Никаких острых углов.</p></div>
+    <div class="card"><h3>Кнопки</h3><p><span class="btn">Основная</span>&nbsp; <span class="btn ghost">Второстепенная</span><br><span style="color:var(--muted);font-size:13px;">Главная — градиент, вторичная — прозрачная с границей.</span></p></div>
+    <div class="card"><h3>Разделители</h3><p>1 px, цвет #334155. Используются вместо теней — стиль «чисто и воздушно».</p></div>
+  </div>
+
+  <h2>4 · Тон и правила общения</h2>
+  <div class="grid g2">
+    <div class="card"><h3 style="color:var(--ok);">✓ Делать</h3><p>Честно: «быстро благодаря AI» вместо «профессионал высшего класса». «Сначала смысл, потом красота». Приветливо, коротко, по-человечески. Уважение к клиенту без канцелярита.</p></div>
+    <div class="card"><h3 style="color:var(--warn);">✗ Не делать</h3><p>Не обещать невозможного, не называть себя «профессиональным разработчиком», не использовать кричащие цвета и острые углы. Не брать на функции «диагноз» без дисклеймера.</p></div>
+  </div>
+
+  <h2>5 · Готовый код для новых проектов</h2>
+  <p style="color:var(--muted);font-size:14px;margin-bottom:10px;">Вставляйте этот блок в начало CSS любого нового проекта — стиль сразу совпадёт.</p>
+  <div class="card">
+<code style="display:block; white-space:pre; padding:16px; overflow-x:auto;">
+:root{
+  --bg:#0f172a; --bg2:#1e293b; --line:#334155;
+  --text:#e2e8f0; --muted:#94a3b8;
+  --accent:#8b5cf6; --accent2:#2563eb;
+  --ok:#4ade80; --warn:#f87171;
+}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);}
+/* карточки: border-radius:16px; border:1px solid var(--line); background:var(--bg2); */
+/* главная кнопка: background:linear-gradient(135deg,var(--accent),var(--accent2)); */
+/* ключевое слово: градиентная заливка текста */
+/* дисклеймер: пунктирная рамка var(--warn) 40% */
+</code>
+  </div>
+
+  <h2>6 · Кто и как использует</h2>
+  <div class="grid g3">
+    <div class="card"><h3>Портфолио</h3><p>Всегда тёмная тема. Демо-инструменты на сайте — в этом же стиле.</p></div>
+    <div class="card"><h3>Трекеры / боты</h3><p>Тот же набор переменных. Медицинские темы — обязателен дисклеймер.</p></div>
+    <div class="card"><h3>Тетрадь и визитка</h3><p>В текстах — тёмные плашки по возможности; тон раздела №4.</p></div>
+  </div>
+
+  <p style="color:var(--muted);font-size:13px;margin-top:40px;">Брендбук·Вайб-кодер · версия 1.0 · создан в 2026</p>
+</div>
+</body>
+</html>
