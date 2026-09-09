@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>SEO-конструктор карточки · Вайб-кодер</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root{ --bg:#0f172a; --bg2:#1e293b; --bg3:#16233a; --line:#334155;
+    --text:#e2e8f0; --muted:#94a3b8; --accent:#8b5cf6; --accent2:#2563eb; --ok:#4ade80; --warn:#f87171; }
+  body{ font-family:'Segoe UI', Arial, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+  .wrap{ max-width:1000px; margin:0 auto; padding:60px 24px 90px; }
+  header{ position:sticky; top:0; background:rgba(15,23,42,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); z-index:50; }
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding:12px 20px; max-width:1000px; margin:0 auto; }
+  .logo{ font-weight:800; } .logo span{ color:var(--accent); }
+  .nav a{ color:var(--muted); text-decoration:none; font-size:14px; } .nav a:hover{ color:var(--text); }
+  h1{ font-size:34px; line-height:1.2; margin-bottom:10px; }
+  h1 b{ background:linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .lead{ color:var(--muted); margin-bottom:34px; font-size:16px; max-width:760px; }
+  .panel{ background:var(--bg2); border:1px solid var(--line); border-radius:18px; padding:26px; }
+  label{ display:block; font-size:14px; color:var(--muted); margin-bottom:8px; }
+  .row{ display:flex; gap:10px; }
+  input[type=text]{ flex:1; padding:13px 16px; border-radius:12px; border:1px solid var(--line);
+    background:var(--bg); color:var(--text); font-size:16px; }
+  input[type=text]:focus{ outline:none; border-color:var(--accent); }
+  button{ padding:13px 24px; border:none; border-radius:12px; cursor:pointer;
+    background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; font-weight:700; font-size:15px; }
+  button:hover{ opacity:.9; }
+  .tiny{ font-size:12.5px; color:var(--muted); margin-top:12px; }
+  .tiny b{ color:var(--text); }
+  .eg{ margin-top:12px; font-size:13px; color:var(--muted); }
+  .eg button{ background:none; border:1px solid var(--line); color:var(--muted); padding:6px 14px; border-radius:999px; font-size:13px; font-weight:500; margin:4px 6px 0 0; }
+  .eg button:hover{ color:var(--text); border-color:var(--accent); }
+  .out{ margin-top:26px; }
+  .sec{ margin-bottom:22px; }
+  .sec .k{ font-size:12px; letter-spacing:1.5px; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:6px; }
+  .h1{ font-size:22px; font-weight:800; background:var(--bg); border:1px solid var(--line); border-radius:12px; padding:14px 16px; }
+  .h1 span{ background:linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .h2{ background:var(--bg); border:1px dashed var(--line); border-radius:10px; padding:10px 14px; margin-top:8px; font-size:15px; color:var(--text); }
+  .h2 i{ color:var(--muted); font-style:normal; font-size:12px; }
+  .chip{ display:inline-block; background:rgba(139,92,246,.12); color:#c4b5fd; border:1px solid rgba(139,92,246,.3);
+    border-radius:999px; padding:6px 14px; font-size:13.5px; margin:4px 6px 0 0; }
+  .chip.ok{ background:rgba(74,222,128,.1); color:var(--ok); border-color:rgba(74,222,128,.3); }
+  .warn{ background:rgba(248,113,113,.08); border:1px dashed rgba(248,113,113,.4); color:var(--muted);
+    font-size:13.5px; padding:12px 16px; border-radius:12px; margin-top:22px; }
+  .warn b{ color:var(--text); }
+  .foot{ margin-top:44px; padding-top:22px; border-top:1px solid var(--line); color:var(--muted); font-size:13.5px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+  .foot .who{ color:var(--text); font-weight:700; } .foot .who span{ color:var(--accent); }
+  @media(max-width:600px){ .row{ flex-direction:column; } h1{ font-size:27px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">Вайб<span>-</span>кодер</div>
+    <a href="index.html">← на портфолио</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <h1>SEO-конструктор: <b>карточка под ключевой запрос</b></h1>
+  <div class="lead">Живое демо из Кейса 6. Введите название товара или услуги — и я соберу структуру SEO-текста: заголовки, разделы, FAQ-блок и список ключей. Так я работаю с реальными заказами с бирж.</div>
+
+  <div class="panel">
+    <label for="q">Введите товар или услугу</label>
+    <div class="row">
+      <input type="text" id="q" placeholder="например: сковорода с антипригарным покрытием" value="сковорода с антипригарным покрытием">
+      <button onclick="build()">Собрать структуру</button>
+    </div>
+    <div class="eg">или попробуйте пример:
+      <button onclick="use('сковорода с антипригарным покрытием')">сковорода</button>
+      <button onclick="use('бурение скважин на воду')">бурение скважин</button>
+      <button onclick="use('ремонт квартир под ключ')">ремонт квартир</button>
+    </div>
+    <div class="tiny"><b>Правило честности из моего процесса:</b> ключи подбираются под нишу, гео и конкурентов, а позиции фиксируются <b>до</b> старта и замеряются через 2–3 месяца. Демо показывает структуру, а не обещает «топ-1».</div>
+  </div>
+
+  <div class="out" id="out"></div>
+  <div class="warn" id="warn" style="display:none;"></div>
+
+  <div class="foot">
+    <div class="who">Вайб<span>-</span>кодер Сергей · SEO-тексты под ключевые запросы</div>
+    <div>структура H1/H2 · семантика · редактура фактов · CTA</div>
+  </div>
+</div>
+
+<script>
+var EXAMPLES = {
+  'сковорода с антипригарным покрытием': {
+    h1: 'Купить сковороду с антипригарным покрытием — цены и доставка',
+    h2: [ 'Какие бывают антипригарные покрытия', 'Как выбрать сковороду по диаметру и плите', 'Доставка и оплата', 'Вопрос-ответ (FAQ)' ],
+    faq: [ 'Какая сковорода с антипригарным покрытием лучше?', 'Подходит ли сковорода для индукционной плиты?', 'Какая гарантия на антипригарное покрытие?' ],
+    cta: 'Купить в 1 клик — перезвоним и оформим доставку',
+    keys: [ 'сковорода с антипригарным покрытием купить', 'сковорода с крышкой', 'сковорода для индукционной плиты', 'сковороды недорого с доставкой', 'какая сковорода лучше' ]
+  },
+  'бурение скважин на воду': {
+    h1: 'Бурение скважин на воду в Ивановской области — цена за метр',
+    h2: [ 'Какие бывают скважины: песчаная и артезианская', 'Из чего складывается цена бурения', 'Как проверить, есть ли вода на участке', 'Вопрос-ответ (FAQ)' ],
+    faq: [ 'Сколько стоит пробурить скважину?', 'Сколько времени занимает бурение?', 'Нужна ли лицензия на скважину?' ],
+    cta: 'Бесплатный выезд и оценка воды на вашем участке',
+    keys: [ 'бурение скважин на воду цена', 'бурение скважины под ключ', 'скважина на воду санкт-петербург', 'обустройство скважины на воду', 'какая скважина лучше' ]
+  },
+  'ремонт квартир под ключ': {
+    h1: 'Ремонт квартир под ключ — цена за метр и сроки',
+    h2: [ 'Какие варианты ремонта бывают', 'Из чего складывается смета', 'Как мы работаем: этапы', 'Вопрос-ответ (FAQ)' ],
+    faq: [ 'Сколько стоит ремонт квартиры под ключ?', 'Сколько длится ремонт?', 'Есть ли гарантия на работы?' ],
+    cta: 'Бесплатный замер и смета под вашу квартиру',
+    keys: [ 'ремонт квартир под ключ цена', 'ремонт двухкомнатной квартиры', 'косметический ремонт квартиры', 'ремонт под ключ с материалами', 'сколько стоит ремонт' ]
+  }
+};
+
+function esc(s){ return s.replace(/[&<>]/g, function(c){ return { '&':'&amp;','<':'&lt;','>':'&gt;' }[c]; }); }
+
+function titleWords(s){ return s; }
+
+function build(){
+  var q = document.getElementById('q').value.trim();
+  var warn = document.getElementById('warn');
+  var out = document.getElementById('out');
+  if(!q || q.length < 3){ warn.style.display='block'; warn.textContent = 'Введите запрос из 3+ символов.'; out.innerHTML=''; return; }
+  if(q.toLowerCase()==='сковорода'){ q = 'сковорода с антипригарным покрытием'; }
+  if(q.toLowerCase()==='бурение скважин'){ q = 'бурение скважин на воду'; }
+  if(q.toLowerCase()==='ремонт квартир'){ q = 'ремонт квартир под ключ'; }
+  document.getElementById('q').value = q;
+  warn.style.display='none';
+
+  var ex = EXAMPLES[q.toLowerCase()];
+
+  var html = '';
+  html += '<div class="sec"><div class="k">H1 · заголовок страницы</div><div class="h1">' + (ex? esc(ex.h1) : esc(cap(q)) + ' — <span>купить</span> и цены') + '</div></div>';
+
+  html += '<div class="sec"><div class="k">H2 · разделы страницы</div>';
+  var h2s = ex? ex.h2 : [
+    'Какие бывают варианты',
+    'Как выбрать ' + q,
+    'Доставка и оплата',
+    'Вопрос-ответ (FAQ)'
+  ];
+  h2s.forEach(function(h){ html += '<div class="h2">' + esc(h) + '</div>'; });
+  html += '</div>';
+
+  html += '<div class="sec"><div class="k">FAQ · блок «вопрос-ответ» для поиска</div>';
+  var faqs = ex? ex.faq : [
+    'Как выбрать ' + q + '?',
+    'Сколько стоит ' + q + '?',
+    'Есть ли доставка и гарантия?'
+  ];
+  faqs.forEach(function(f){ html += '<div class="h2">' + esc(f) + '</div>'; });
+  html += '</div>';
+
+  html += '<div class="sec"><div class="k">CTA · призыв к действию</div><div class="h1" style="font-size:17px;font-weight:700;">' + esc(ex? ex.cta : 'Заказать: ' + q + ' — быстро и понятно') + '</div></div>';
+
+  html += '<div class="sec"><div class="k">Ключевые запросы · к брифу</div>';
+  var ks = ex? ex.keys : [ q + ' купить', q + ' цена', q + ' с доставкой', 'как выбрать ' + q, q + ' отзывы', q + ' недорого' ];
+  ks.forEach(function(k){ html += '<span class="chip">' + esc(k) + '</span>'; });
+  html += '<div style="margin-top:10px;"><span class="chip ok">✓ низко- и среднечастотные — реально попасть в топ</span><span class="chip ok">✓ LSI-фразы для «как выбрать»</span></div>';
+  html += '</div>';
+
+  html += '<div class="warn"><b>Что дальше по процессу:</b> черновик генерируется ИИ, затем я вычищаю факты (ничего выдуманного), ключи, читаемость и CTA. Позиции фиксируются до старта и замеряются через 2–3 месяца — без «+300% ради картинки».</div>';
+
+  out.innerHTML = html;
+}
+
+function use(s){
+  document.getElementById('q').value = s;
+  build();
+}
+
+function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+build();
+</script>
+</body>
+</html>
