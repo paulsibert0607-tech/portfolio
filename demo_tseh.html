@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Расчёты по цеху · Вайб-кодер</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root{ --bg:#0f172a; --bg2:#1e293b; --bg3:#16233a; --line:#334155;
+    --text:#e2e8f0; --muted:#94a3b8; --accent:#8b5cf6; --accent2:#2563eb; --ok:#4ade80; --warn:#f87171; }
+  body{ font-family:'Segoe UI', Arial, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+  .wrap{ max-width:1000px; margin:0 auto; padding:50px 24px 80px; }
+  header{ position:sticky; top:0; background:rgba(15,23,42,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); z-index:50; }
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding:12px 20px; max-width:1000px; margin:0 auto; }
+  .logo{ font-weight:800; } .logo span{ color:var(--accent); }
+  .nav a{ color:var(--muted); text-decoration:none; font-size:14px; margin-left:16px; } .nav a:hover{ color:var(--text); }
+  h1{ font-size:32px; line-height:1.2; margin-bottom:10px; }
+  h1 b{ background:linear-gradient(90deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .lead{ color:var(--muted); margin-bottom:30px; font-size:16px; max-width:780px; }
+  .panel{ background:var(--bg2); border:1px solid var(--line); border-radius:18px; padding:26px; margin-bottom:18px; }
+  .panel h2{ font-size:18px; margin-bottom:6px; }
+  .panel .sub{ color:var(--muted); font-size:13.5px; margin-bottom:18px; }
+  .frow{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media(max-width:600px){ .frow{ grid-template-columns:1fr; } }
+  .field label{ display:block; font-size:13px; color:var(--muted); margin-bottom:5px; }
+  input[type=number], input[type=text]{ width:100%; padding:11px 14px; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--text); font-size:15px; }
+  input:focus{ outline:none; border-color:var(--accent); }
+  .btn{ display:inline-block; padding:12px 22px; border-radius:12px; border:none; cursor:pointer; font-weight:700; font-size:15px; text-decoration:none; }
+  .btn-main{ background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; }
+  .btn-ghost{ background:none; border:1px solid var(--line); color:var(--text); }
+  .btn:hover{ opacity:.9; }
+  .btns{ margin-top:16px; display:flex; gap:10px; flex-wrap:wrap; }
+  .out{ margin-top:18px; }
+  .smeta{ border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--bg); }
+  .smeta .row{ display:flex; justify-content:space-between; align-items:center; padding:12px 18px; border-bottom:1px dashed var(--line); font-size:14px; }
+  .smeta .row:last-child{ border-bottom:none; }
+  .smeta .row span{ color:var(--muted); }
+  .smeta .row b{ color:var(--text); }
+  .smeta .row.hl{ background:linear-gradient(90deg, rgba(139,92,246,.14), rgba(37,99,235,.14)); font-weight:700; }
+  .smeta .row.hl b{ color:var(--accent); font-size:17px; }
+  .meter{ margin-top:14px; }
+  .meter .lbl{ font-size:13px; color:var(--muted); margin-bottom:6px; display:flex; justify-content:space-between; }
+  .bar{ height:14px; background:var(--bg); border:1px solid var(--line); border-radius:999px; overflow:hidden; }
+  .bar i{ display:block; height:100%; border-radius:999px; background:linear-gradient(90deg,var(--accent),var(--accent2)); transition:width .4s; }
+  .gift{ margin-top:18px; background:rgba(139,92,246,.1); border:1px dashed rgba(139,92,246,.45); border-radius:14px; padding:18px 20px; }
+  .gift b{ color:#c4b5fd; }
+  .gift p{ color:var(--muted); font-size:13.5px; margin-top:8px; }
+  .warn{ background:rgba(248,113,113,.08); border:1px dashed rgba(248,113,113,.4); color:var(--muted); font-size:13.5px; padding:12px 16px; border-radius:12px; margin-top:18px; }
+  .foot{ margin-top:40px; padding-top:22px; border-top:1px solid var(--line); color:var(--muted); font-size:13.5px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+  .foot .who{ color:var(--text); font-weight:700; } .foot .who span{ color:var(--accent); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">Вайб<span>-</span>кодер</div>
+    <div><a href="index.html">← на портфолио</a><a href="seo_constructor.html">SEO-конструктор ↗</a></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <h1>Расчёты по цеху: <b>быстрый итог на экране</b></h1>
+  <div class="lead">Живое демо из моих проектов. Введите цифры своего цеха — покажу баланс и рентабельность прямо на экране, без регистрации. Полный файл Excel под ваши данные — отдельным шагом.</div>
+
+  <div class="panel">
+    <h2>Введите цифры за месяц</h2>
+    <div class="sub">Ориентировочные, можно менять и смотреть, как меняется итог.</div>
+    <div class="frow">
+      <div class="field"><label>Выручка (₽)</label><input type="number" id="rev" value="500000"></div>
+      <div class="field"><label>Материалы и сырьё (₽)</label><input type="number" id="mat" value="180000"></div>
+      <div class="field"><label>Зарплата сотрудников (₽)</label><input type="number" id="sal" value="120000"></div>
+      <div class="field"><label>Аренда и коммунальные (₽)</label><input type="number" id="rent" value="60000"></div>
+      <div class="field"><label>Налоги и взносы (₽)</label><input type="number" id="tax" value="50000"></div>
+      <div class="field"><label>Прочие расходы (₽)</label><input type="number" id="oth" value="20000"></div>
+    </div>
+    <div class="btns">
+      <button class="btn btn-main" onclick="calc()">Посчитать итог</button>
+      <button class="btn btn-ghost" onclick="reset()">Пример</button>
+    </div>
+    <div class="out" id="out"></div>
+    <div class="gift" id="gift" style="display:none;">
+      <b>Полный расчёт в Excel — бесплатно</b>
+      <p>На экране — быстрый итог. Файл Excel с разбивкой по статьям, налогам и рекомендациями — под ваши цифры. Напишите в Telegram — пришлю файл и 15-минутное пояснение.</p>
+      <div class="btns">
+        <a href="https://t.me/paulsibert" target="_blank" rel="noopener" class="btn btn-main">Получить расчёт в Excel</a>
+        <a href="https://vk.com/paulsibert" target="_blank" rel="noopener" class="btn btn-ghost">Написать в VK</a>
+      </div>
+    </div>
+    <div class="warn">Демо — учебный инструмент для знакомства с логикой. Точный расчёт зависит от ваших реальных данных и учётной политики.</div>
+  </div>
+
+  <div class="foot">
+    <div class="who">Вайб<span>-</span>кодер Сергей</div>
+    <div>живой расчёт на экране · полный Excel за контакт</div>
+  </div>
+</div>
+
+<script>
+function fmt(n){ return Math.round(n).toLocaleString('ru-RU'); }
+function calc(){
+  var rev = parseFloat(document.getElementById('rev').value)||0;
+  var mat = parseFloat(document.getElementById('mat').value)||0;
+  var sal = parseFloat(document.getElementById('sal').value)||0;
+  var rent= parseFloat(document.getElementById('rent').value)||0;
+  var tax = parseFloat(document.getElementById('tax').value)||0;
+  var oth = parseFloat(document.getElementById('oth').value)||0;
+  var cost = mat+sal+rent+tax+oth;
+  var profit = rev-cost;
+  var rentpct = rev>0 ? (profit/rev*100) : 0;
+
+  var html = '<div class="smeta">';
+  html += '<div class="row"><span>Выручка</span><b>'+fmt(rev)+' ₽</b></div>';
+  html += '<div class="row"><span>Расходы всего</span><b>'+fmt(cost)+' ₽</b></div>';
+  html += '<div class="row"><span>Материалы</span><b>'+fmt(mat)+' ₽</b></div>';
+  html += '<div class="row"><span>Зарплата</span><b>'+fmt(sal)+' ₽</b></div>';
+  html += '<div class="row"><span>Аренда</span><b>'+fmt(rent)+' ₽</b></div>';
+  html += '<div class="row"><span>Налоги</span><b>'+fmt(tax)+' ₽</b></div>';
+  html += '<div class="row"><span>Прочие</span><b>'+fmt(oth)+' ₽</b></div>';
+  html += '<div class="row hl"><span>Чистая прибыль</span><b>'+fmt(profit)+' ₽</b></div>';
+  html += '</div>';
+
+  html += '<div class="meter"><div class="lbl"><span>Рентабельность</span><b style="color:'+(rentpct>=0?'var(--ok)':'var(--warn)')+';">'+rentpct.toFixed(1)+'%</b></div><div class="bar"><i style="width:'+Math.max(0,Math.min(100,rentpct)).toFixed(1)+'%;"></i></div></div>';
+
+  if(rev>0 && profit<0){ html+='<div class="warn">Цех работает в минус: расходы ('+fmt(cost)+' ₽) выше выручки ('+fmt(rev)+' ₽). Полный разбор в Excel покажет, где резать.</div>'; }
+  document.getElementById('out').innerHTML=html;
+  document.getElementById('gift').style.display='block';
+}
+function reset(){
+  document.getElementById('rev').value=500000;
+  document.getElementById('mat').value=180000;
+  document.getElementById('sal').value=120000;
+  document.getElementById('rent').value=60000;
+  document.getElementById('tax').value=50000;
+  document.getElementById('oth').value=20000;
+  calc();
+}
+calc();
+</script>
+</body>
+</html>
