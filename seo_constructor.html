@@ -40,6 +40,12 @@
   .chip{ display:inline-block; background:rgba(139,92,246,.12); color:#c4b5fd; border:1px solid rgba(139,92,246,.3);
     border-radius:999px; padding:6px 14px; font-size:13.5px; margin:4px 6px 0 0; }
   .chip.ok{ background:rgba(74,222,128,.1); color:var(--ok); border-color:rgba(74,222,128,.3); }
+  .tt{ display:flex; gap:10px; margin-bottom:14px; }
+  .tt input{ display:none; }
+  .tt label{ flex:1; text-align:center; padding:11px 14px; border-radius:12px; border:1px solid var(--line);
+    background:var(--bg); color:var(--muted); font-size:15px; font-weight:700; cursor:pointer; margin:0; }
+  .tt input:checked + label{ background:var(--bg2); color:#fff; border-color:var(--accent); }
+  .tt label span{ display:block; font-size:12px; font-weight:400; color:var(--muted); margin-top:2px; }
   .warn{ background:rgba(248,113,113,.08); border:1px dashed rgba(248,113,113,.4); color:var(--muted);
     font-size:13.5px; padding:12px 16px; border-radius:12px; margin-top:22px; }
   .warn b{ color:var(--text); }
@@ -63,14 +69,19 @@
   <div class="lead">Живое демо из Кейса 6. Введите название товара или услуги — и я соберу структуру SEO-текста: заголовки, разделы, FAQ-блок и список ключей. Так я работаю с реальными заказами с бирж.</div>
 
   <div class="panel">
+    <div class="tt">
+      <input type="radio" name="type" id="t-goods" checked><label for="t-goods">Товар<span>сковорода, нож, форма для выпечки</span></label>
+      <input type="radio" name="type" id="t-service"><label for="t-service">Услуга<span>психолог, бурение, ремонт</span></label>
+    </div>
     <label for="q">Введите товар или услугу</label>
     <div class="row">
-      <input type="text" id="q" placeholder="например: сковорода с антипригарным покрытием" value="сковорода с антипригарным покрытием">
+      <input type="text" id="q" placeholder="например: консультация психолога" value="консультация психолога">
       <button onclick="build()">Собрать структуру</button>
     </div>
     <div class="eg">или попробуйте пример:
       <button onclick="use('сковорода с антипригарным покрытием')">сковорода</button>
       <button onclick="use('бурение скважин на воду')">бурение скважин</button>
+      <button onclick="use('консультация психолога')">психолог</button>
       <button onclick="use('ремонт квартир под ключ')">ремонт квартир</button>
     </div>
     <div class="tiny"><b>Правило честности из моего процесса:</b> ключи подбираются под нишу, гео и конкурентов, а позиции фиксируются <b>до</b> старта и замеряются через 2–3 месяца. Демо показывает структуру, а не обещает «топ-1».</div>
@@ -88,6 +99,7 @@
 <script>
 var EXAMPLES = {
   'сковорода с антипригарным покрытием': {
+    type: 'goods',
     h1: 'Купить сковороду с антипригарным покрытием — цены и доставка',
     h2: [ 'Какие бывают антипригарные покрытия', 'Как выбрать сковороду по диаметру и плите', 'Доставка и оплата', 'Вопрос-ответ (FAQ)' ],
     faq: [ 'Какая сковорода с антипригарным покрытием лучше?', 'Подходит ли сковорода для индукционной плиты?', 'Какая гарантия на антипригарное покрытие?' ],
@@ -95,6 +107,7 @@ var EXAMPLES = {
     keys: [ 'сковорода с антипригарным покрытием купить', 'сковорода с крышкой', 'сковорода для индукционной плиты', 'сковороды недорого с доставкой', 'какая сковорода лучше' ]
   },
   'бурение скважин на воду': {
+    type: 'service',
     h1: 'Бурение скважин на воду в Ивановской области — цена за метр',
     h2: [ 'Какие бывают скважины: песчаная и артезианская', 'Из чего складывается цена бурения', 'Как проверить, есть ли вода на участке', 'Вопрос-ответ (FAQ)' ],
     faq: [ 'Сколько стоит пробурить скважину?', 'Сколько времени занимает бурение?', 'Нужна ли лицензия на скважину?' ],
@@ -102,11 +115,20 @@ var EXAMPLES = {
     keys: [ 'бурение скважин на воду цена', 'бурение скважины под ключ', 'скважина на воду санкт-петербург', 'обустройство скважины на воду', 'какая скважина лучше' ]
   },
   'ремонт квартир под ключ': {
+    type: 'service',
     h1: 'Ремонт квартир под ключ — цена за метр и сроки',
     h2: [ 'Какие варианты ремонта бывают', 'Из чего складывается смета', 'Как мы работаем: этапы', 'Вопрос-ответ (FAQ)' ],
     faq: [ 'Сколько стоит ремонт квартиры под ключ?', 'Сколько длится ремонт?', 'Есть ли гарантия на работы?' ],
     cta: 'Бесплатный замер и смета под вашу квартиру',
     keys: [ 'ремонт квартир под ключ цена', 'ремонт двухкомнатной квартиры', 'косметический ремонт квартиры', 'ремонт под ключ с материалами', 'сколько стоит ремонт' ]
+  },
+  'консультация психолога': {
+    type: 'service',
+    h1: 'Консультация психолога — записаться онлайн и в Санкт-Петербурге',
+    h2: [ 'С какими запросами приходят к психологу', 'Как проходит консультация: формат и длительность', 'Стоимость и оплата', 'Вопрос-ответ (FAQ)' ],
+    faq: [ 'Сколько стоит консультация психолога?', 'Как проходит первая консультация?', 'Работаете ли вы онлайн?', 'Конфиденциально ли это?' ],
+    cta: 'Записаться на консультацию — помогу разобраться в вашем запросе',
+    keys: [ 'психолог санкт-петербург', 'психолог онлайн цена', 'записаться к психологу', 'психолог транзактного анализа', 'сколько стоит психолог', 'психотерапия тревоги' ]
   }
 };
 
@@ -119,6 +141,8 @@ function build(){
   var warn = document.getElementById('warn');
   var out = document.getElementById('out');
   if(!q || q.length < 3){ warn.style.display='block'; warn.textContent = 'Введите запрос из 3+ символов.'; out.innerHTML=''; return; }
+  var tGoods = document.getElementById('t-goods').checked;
+  var isService = !tGoods;
   if(q.toLowerCase()==='сковорода'){ q = 'сковорода с антипригарным покрытием'; }
   if(q.toLowerCase()==='бурение скважин'){ q = 'бурение скважин на воду'; }
   if(q.toLowerCase()==='ремонт квартир'){ q = 'ремонт квартир под ключ'; }
@@ -126,35 +150,41 @@ function build(){
   warn.style.display='none';
 
   var ex = EXAMPLES[q.toLowerCase()];
+  if(ex && ex.type !== undefined && document.querySelector('input[name="type"]:checked').id !== (ex.type==='service'?'t-service':'t-goods')){
+    document.getElementById(ex.type==='service'?'t-service':'t-goods').checked = true;
+    isService = ex.type==='service';
+  }
+
+  var verb = isService ? 'записаться' : 'купить';
+  var h1fallback = (isService
+    ? esc(cap(q)) + ' — <span>цены и запись</span>'
+    : esc(cap(q)) + ' — <span>купить</span> и цены');
 
   var html = '';
-  html += '<div class="sec"><div class="k">H1 · заголовок страницы</div><div class="h1">' + (ex? esc(ex.h1) : esc(cap(q)) + ' — <span>купить</span> и цены') + '</div></div>';
+  html += '<div class="sec"><div class="k">H1 · заголовок страницы</div><div class="h1">' + (ex? esc(ex.h1) : h1fallback) + '</div></div>';
 
   html += '<div class="sec"><div class="k">H2 · разделы страницы</div>';
-  var h2s = ex? ex.h2 : [
-    'Какие бывают варианты',
-    'Как выбрать ' + q,
-    'Доставка и оплата',
-    'Вопрос-ответ (FAQ)'
-  ];
+  var h2s = ex? ex.h2 : (isService
+    ? [ 'Кому подойдёт ' + q, 'Как проходит работа: этапы', 'Стоимость и оплата', 'Вопрос-ответ (FAQ)' ]
+    : [ 'Какие бывают варианты', 'Как выбрать ' + q, 'Доставка и оплата', 'Вопрос-ответ (FAQ)' ]);
   h2s.forEach(function(h){ html += '<div class="h2">' + esc(h) + '</div>'; });
   html += '</div>';
 
   html += '<div class="sec"><div class="k">FAQ · блок «вопрос-ответ» для поиска</div>';
-  var faqs = ex? ex.faq : [
-    'Как выбрать ' + q + '?',
-    'Сколько стоит ' + q + '?',
-    'Есть ли доставка и гарантия?'
-  ];
+  var faqs = ex? ex.faq : (isService
+    ? [ 'Сколько стоит ' + q + '?', 'Как записаться на ' + q + '?', 'Работаете ли вы онлайн?' ]
+    : [ 'Как выбрать ' + q + '?', 'Сколько стоит ' + q + '?', 'Есть ли доставка и гарантия?' ]);
   faqs.forEach(function(f){ html += '<div class="h2">' + esc(f) + '</div>'; });
   html += '</div>';
 
-  html += '<div class="sec"><div class="k">CTA · призыв к действию</div><div class="h1" style="font-size:17px;font-weight:700;">' + esc(ex? ex.cta : 'Заказать: ' + q + ' — быстро и понятно') + '</div></div>';
+  html += '<div class="sec"><div class="k">CTA · призыв к действию</div><div class="h1" style="font-size:17px;font-weight:700;">' + esc(ex? ex.cta : (isService ? 'Записаться: ' + q + ' — удобное время и формат' : 'Купить: ' + q + ' — быстро и с доставкой')) + '</div></div>';
 
   html += '<div class="sec"><div class="k">Ключевые запросы · к брифу</div>';
-  var ks = ex? ex.keys : [ q + ' купить', q + ' цена', q + ' с доставкой', 'как выбрать ' + q, q + ' отзывы', q + ' недорого' ];
+  var ks = ex? ex.keys : (isService
+    ? [ q + ' цена', q + ' записаться', q + ' отзывы', q + ' онлайн', 'как выбрать ' + q ]
+    : [ q + ' купить', q + ' цена', q + ' с доставкой', 'как выбрать ' + q, q + ' отзывы' ]);
   ks.forEach(function(k){ html += '<span class="chip">' + esc(k) + '</span>'; });
-  html += '<div style="margin-top:10px;"><span class="chip ok">✓ низко- и среднечастотные — реально попасть в топ</span><span class="chip ok">✓ LSI-фразы для «как выбрать»</span></div>';
+  html += '<div style="margin-top:10px;"><span class="chip ok">✓ низко- и среднечастотные — реально попасть в топ</span><span class="chip ok">✓ LSI-фразы под ' + (isService ? 'запрос «записаться»' : 'запрос «купить»') + '</span></div>';
   html += '</div>';
 
   html += '<div class="warn"><b>Что дальше по процессу:</b> черновик генерируется ИИ, затем я вычищаю факты (ничего выдуманного), ключи, читаемость и CTA. Позиции фиксируются до старта и замеряются через 2–3 месяца — без «+300% ради картинки».</div>';
@@ -164,6 +194,10 @@ function build(){
 
 function use(s){
   document.getElementById('q').value = s;
+  var ex = EXAMPLES[s.toLowerCase()];
+  if(ex && ex.type){
+    document.getElementById(ex.type==='service'?'t-service':'t-goods').checked = true;
+  }
   build();
 }
 
